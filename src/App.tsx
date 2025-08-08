@@ -60,21 +60,21 @@ export default function App() {
       title: "About Us",
       subtitle: "Learn about our mission to amplify youth voices and create meaningful change. We are a national, youth-powered movement dedicated to organizing bold campaigns and advancing real policy change.",
       buttonText: "Follow Us",
-      image: "/src/assets/temp.webp"
+      image: "/seenandheard/src/assets/temp.webp"
     },
     { 
       color: "transparent",
       title: "Join Us",
       subtitle: "Ready to make a difference? Join our community of young advocates and become part of the movement. Together, we can build community and create lasting change.",
       buttonText: "Join Email List",
-      image: "/src/assets/temp.webp"
+      image: "/seenandheard/src/assets/temp.webp"
     },
     { 
       color: "transparent",
       title: "Support Us",
       subtitle: "Help us amplify youth voices and advance our mission. Your support enables us to organize campaigns, advocate for policy change, and build stronger communities.",
       buttonText: "Support Now",
-      image: "/src/assets/temp.webp"
+      image: "/seenandheard/src/assets/temp.webp"
     }
   ]
 
