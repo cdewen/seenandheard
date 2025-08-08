@@ -217,13 +217,13 @@ export default function App() {
           <div className="text-center space-y-4 sm:space-y-6">
             {/* First Line */}
             <div className="flex flex-col sm:flex-row items-center justify-center space-y-2 sm:space-y-0 sm:space-x-4 lg:space-x-6 text-4xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl">
-              <h1 className="font-black text-black tracking-tight">ORGANIZE</h1>
-              <h1 className="font-black text-black tracking-tight">ADVOCATE</h1>
+              <h1 className="font-black text-black tracking-tight">LOUDER</h1>
+              <h1 className="font-black text-black tracking-tight">STRONGER</h1>
             </div>
 
             {/* Second Line */}
             <div className="flex items-center justify-center text-4xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl">
-              <h1 className="font-black text-black tracking-tight">UNIFY</h1>
+              <h1 className="font-black text-black tracking-tight">UNSTOPPABLE</h1>
             </div>
           </div>
 
