@@ -230,7 +230,7 @@ export default function App() {
           {/* Subheading */}
           <div className="text-center mt-4 sm:mt-6 lg:mt-8 max-w-3xl mx-auto px-4">
             <p className="text-sm sm:text-base lg:text-lg xl:text-xl text-gray-800 font-medium leading-relaxed">
-              A national, youth-powered movement to organize bold campaigns, advance real policy change, build community and unify the voices of the many groups that advocate on behalf of children
+            Seen & Heard is a national, youth-powered force, sparking bold campaigns, winning real policy change, and uniting voices nationwide to champion the rights and futures of children and young people. Stand with us. 
             </p>
           </div>
         </div>
