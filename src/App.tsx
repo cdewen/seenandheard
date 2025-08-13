@@ -224,8 +224,8 @@ export default function App() {
               <Button variant="link" onClick={() => handleNavClick(2)} className="text-gray-800 hover:text-black font-medium text-lg py-2 text-left p-0 h-auto justify-start">
                 Support Us
               </Button>
-              <Button className="bg-black hover:bg-gray-800 text-white px-6 py-2 rounded-md font-medium mt-2">
-                Get Started
+              <Button onClick={() => window.open('https://render.jotform.com/252025356654153', '_blank')} className="bg-black hover:bg-gray-800 text-white px-6 py-2 rounded-md font-medium mt-2">
+                Get Involved
               </Button>
             </nav>
           </motion.div>
