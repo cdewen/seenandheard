@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button"
 import { Menu, X } from 'lucide-react'
 import { motion, useScroll, useTransform, useMotionValueEvent } from "framer-motion"
 import { useRef, useState, useEffect, useLayoutEffect } from "react"
+import { SocialIcon } from 'react-social-icons'
 
 export default function App() {
   const containerRef = useRef<HTMLDivElement>(null)
@@ -9,6 +10,8 @@ export default function App() {
   const [currentSlide, setCurrentSlide] = useState(0)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [headerOpacityValue, setHeaderOpacityValue] = useState(1)
+  const [heroOpacityValue, setHeroOpacityValue] = useState(1)
+  const [isMobile, setIsMobile] = useState(false)
 
 
 
@@ -26,6 +29,10 @@ export default function App() {
   useMotionValueEvent(headerOpacity, "change", (latest) => {
     setHeaderOpacityValue(latest)
   })
+  // Track hero opacity similarly so we can disable pointer events when hidden
+  useMotionValueEvent(heroOpacity, "change", (latest) => {
+    setHeroOpacityValue(latest)
+  })
 
   // Initialize header opacity from current scroll on mount, before first paint
   useLayoutEffect(() => {
@@ -33,9 +40,29 @@ export default function App() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
   
+  // Track mobile breakpoint to tune the circle sizing on small screens
+  useEffect(() => {
+    const updateIsMobile = (): void => {
+      setIsMobile(window.matchMedia('(max-width: 640px)').matches)
+    }
+    updateIsMobile()
+    window.addEventListener('resize', updateIsMobile)
+    return () => window.removeEventListener('resize', updateIsMobile)
+  }, [])
+  
   // Circle animation - grows upward and fills screen
-  const circleScale = useTransform(scrollYProgress, [0.2, 0.8], [1, 3])
-  const circleY = useTransform(scrollYProgress, [0.2, 0.8], [0, -400])
+  const circleScale = useTransform(
+    scrollYProgress,
+    [0, 0.8],
+    // On mobile, start just slightly larger than before to avoid gaps, but not enough to cover hero text
+    isMobile ? [1.06, 3.1] : [1, 3]
+  )
+  const circleY = useTransform(
+    scrollYProgress,
+    [0, 0.8],
+    // Keep initial Y neutral on mobile so it doesn't ride up over hero text
+    isMobile ? [0, -400] : [0, -400]
+  )
   
   // Second section animation
   const secondSectionOpacity = useTransform(scrollYProgress, [0.3, 0.6], [0, 1])
@@ -65,8 +92,8 @@ export default function App() {
     { 
       color: "transparent",
       title: "Join Us",
-      subtitle: "Ready to make a difference? Join our community of young advocates and become part of the movement. Together, we can build community and create lasting change.",
-      buttonText: "Join Email List",
+      subtitle: "Seen & Heard welcomes all individuals and organizations that care about children and young people. Whether you're a parent, caregiver, teacher, clinician, community leader, family member, friend of a young person, or a young person yourself - we want you to get involved. Don't just read about change, help make it happen.",
+      buttonText: "Join Our Movement",
       image: "/seenandheard/placeholder.png"
     },
     { 
@@ -131,7 +158,8 @@ export default function App() {
       <header 
         className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-4 py-4 sm:px-6 sm:py-6 lg:px-12"
         style={{ 
-          opacity: headerOpacityValue
+          opacity: headerOpacityValue,
+          pointerEvents: headerOpacityValue < 0.05 ? 'none' : 'auto'
         }}
       >
         <div className="flex items-center">
@@ -165,7 +193,7 @@ export default function App() {
 
         {/* Desktop CTA Button */}
         <div className="hidden md:flex items-center space-x-6">
-          <Button className="bg-black hover:bg-gray-800 text-white px-4 py-2 sm:px-6 sm:py-2 rounded-md font-medium text-sm sm:text-base">
+          <Button onClick={() => window.open('https://render.jotform.com/252025356654153', '_blank')} className="bg-black hover:bg-gray-800 text-white px-4 py-2 sm:px-6 sm:py-2 rounded-md font-medium text-sm sm:text-base">
             Get Involved
           </Button>
         </div>
@@ -209,7 +237,8 @@ export default function App() {
         className="fixed inset-0 px-4 sm:px-6 lg:px-12 pt-20 sm:pt-24 lg:pt-32"
         style={{ 
           opacity: heroOpacity,
-          y: heroY
+          y: heroY,
+          pointerEvents: heroOpacityValue < 0.05 ? 'none' : 'auto'
         }}
       >
         <div className="max-w-6xl mx-auto">
@@ -238,11 +267,12 @@ export default function App() {
 
       {/* Animated Circle - Dynamic Color */}
       <motion.div 
-        className="fixed left-1/2 w-[200vw] sm:w-[150vw] h-[200vw] sm:h-[150vw] max-w-[1500px] max-h-[1500px] rounded-full origin-center transition-colors duration-500"
+        className="fixed left-1/2 w-[200vmax] h-[200vmax] rounded-full origin-center transition-colors duration-500 pointer-events-none"
         style={{ 
           backgroundColor: sections[activeSection].circleColor,
           x: '-50%',
-          top: '55vh',
+          // Lower anchor on mobile so the hero stays readable on initial load
+          top: isMobile ? '70svh' : '55vh',
           scale: circleScale,
           y: circleY
         }}
@@ -250,7 +280,7 @@ export default function App() {
 
       {/* Second Section with Navigation and Sliding Squares */}
       <motion.div 
-        className="fixed inset-0 flex items-center justify-center z-40 pt-16 sm:pt-20 pb-8 sm:pb-16 overflow-y-auto lg:overflow-y-hidden"
+        className="fixed inset-0 flex items-center justify-center z-40 pt-12 sm:pt-20 pb-6 sm:pb-16 overflow-hidden"
         style={{ 
           opacity: secondSectionOpacity,
           y: secondSectionY
@@ -275,40 +305,84 @@ export default function App() {
           </div>
 
           {/* Content Container - No Horizontal Scrolling */}
-          <div className="relative flex-1 min-h-[500px] lg:max-h-[500px] overflow-hidden">
+          <div className="relative flex-1 overflow-hidden" style={{ minHeight: 'calc(100svh - 140px)' }}>
             <div className="w-full h-full">
               {slides.map((slide, index) => (
                 <div
                   key={index}
                   className={`absolute inset-0 w-full h-full rounded-lg flex items-center justify-center px-4 sm:px-6 lg:px-8 py-4 sm:py-6 transition-opacity duration-500 ${
-                    index === currentSlide ? 'opacity-100' : 'opacity-0'
+                    index === currentSlide ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
                   }`}
                   style={{ backgroundColor: slide.color }}
                 >
-                  <div className="flex flex-col lg:flex-row items-center justify-center w-full max-w-6xl mx-auto space-y-6 lg:space-y-0 lg:space-x-8">
+                  <div className="flex flex-col lg:flex-row items-center justify-center w-full max-w-6xl mx-auto space-y-3 lg:space-y-0 lg:space-x-8">
                     {/* Image Section */}
                     <div className="flex-shrink-0 w-full lg:w-1/2 flex items-center justify-center">
                       <div className="relative w-full max-w-sm lg:max-w-none">
                         <img 
                           src={slide.image} 
                           alt={slide.title}
-                          className="w-full h-auto max-h-[200px] sm:max-h-[250px] lg:max-h-[350px] object-contain rounded-lg"
+                          className="w-full h-auto max-h-[140px] sm:max-h-[250px] lg:max-h-[350px] object-contain rounded-lg"
                         />
                       </div>
                     </div>
                     
                     {/* Content Section */}
                     <div className="w-full lg:w-1/2 flex items-center justify-center">
-                      <div className="bg-black/20 backdrop-blur-sm rounded-xl p-4 sm:p-6 w-full max-w-md lg:max-w-none">
+                      <div className="bg-black/20 backdrop-blur-sm rounded-xl p-3 sm:p-5 w-full max-w-md lg:max-w-none overflow-visible lg:overflow-y-auto lg:max-h-[500px]">
                         <h2 className="text-xl sm:text-2xl lg:text-3xl xl:text-4xl font-bold text-white mb-3 sm:mb-4 leading-tight drop-shadow-lg">
                           {slide.title}
                         </h2>
-                        <p className="text-sm sm:text-base lg:text-lg text-white/95 mb-4 sm:mb-6 leading-relaxed drop-shadow-md">
+                        <p className="text-[13px] sm:text-base lg:text-lg text-white/95 mb-3 sm:mb-6 leading-relaxed drop-shadow-md">
                           {slide.subtitle}
                         </p>
-                        <Button className="bg-white hover:bg-gray-100 text-gray-900 px-4 py-2 sm:px-6 sm:py-2 rounded-full font-semibold shadow-lg text-sm sm:text-base">
-                          {slide.buttonText}
-                        </Button>
+                        
+                        {/* Join Us specific content */}
+                        {index === 1 && (
+                          <div className="mb-3 sm:mb-4 space-y-3 sm:space-y-4">
+                            {/* Social Media Links */}
+                            <div className="text-center">
+                              <p className="text-[13px] sm:text-base text-white/95 mb-2 sm:mb-3 drop-shadow-md font-medium">
+                                Join the Seen & Heard community:
+                              </p>
+                              <div className="flex justify-center items-center space-x-4 sm:space-x-6 mx-auto">
+                                <div className="flex flex-col items-center space-y-2">
+                                  <SocialIcon 
+                                    url="https://www.instagram.com/seenandheard.us/" 
+                                    target="_blank"
+                                    style={{ height: 36, width: 36 }}
+                                    className="hover:scale-110 transition-transform duration-200"
+                                  />
+                                </div>
+                                <div className="flex flex-col items-center space-y-2">
+                                  <SocialIcon 
+                                    url="https://www.tiktok.com/@seenandheard.us" 
+                                    target="_blank"
+                                    style={{ height: 36, width: 36 }}
+                                    className="hover:scale-110 transition-transform duration-200"
+                                  />
+                                </div>
+                                <div className="flex flex-col items-center space-y-2">
+                                  <SocialIcon 
+                                    network="email"
+                                    url="https://render.jotform.com/252025356654153" 
+                                    target="_blank"
+                                    style={{ height: 36, width: 36 }}
+                                    className="hover:scale-110 transition-transform duration-200"
+                                  />
+                                </div>
+                              </div>
+                            </div>
+                            
+                          </div>
+                        )}
+                        
+                        {/* Show button for all sections except Join Us */}
+                        {index !== 1 && (
+                          <Button className="bg-white hover:bg-gray-100 text-gray-900 px-4 py-2 sm:px-6 sm:py-2 rounded-full font-semibold shadow-lg text-sm sm:text-base">
+                            {slide.buttonText}
+                          </Button>
+                        )}
                       </div>
                     </div>
                   </div>
