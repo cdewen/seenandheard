@@ -105,6 +105,51 @@ export default function App() {
     }
   ]
 
+  const teamMembers = [
+    {
+      name: "Sallie Permar",
+      role: "Department Chair of Pediatrics, Weill Cornell; Pediatrician-in-Chief, Children's Hospital of New York",
+      bio: "Sallie Permar is a national pediatric and physician-scientist leader and a mom. She is the Department Chair of Pediatrics at Weill Cornell Medicine and the Pediatrician-in-Chief for the Children's Hospital of New York. Her lab works to prevent infections in newborn babies.",
+      image: "/seenandheard/placeholder.png"
+    },
+    {
+      name: "Ilina Ewen",
+      role: "Writer, advocate, and communications expert",
+      bio: "Ilina Ewen is a writer, advocate, and communications expert with over 25 years of experience. A former Chief of Staff to the First Lady of North Carolina and longtime brand strategist, Ilina is known as an ‘accidental activist’ focused on issues stemming from adverse childhood experiences, including childhood hunger, child abuse, public education, global vaccines, and healthcare access. She speaks and writes widely on advocacy, family engagement, and social justice. Ilina is currently leading advocacy training and efforts at the Weill Cornell Department of Pediatrics.",
+      image: "/seenandheard/placeholder.png"
+    },
+    {
+      name: "Mary Todd Earnhardt",
+      role: "Public school educator and licensed school administrator",
+      bio: "Mary Todd Earnhardt is five-year veteran public school educator in Raleigh, North Carolina, and a product of the Wake County Public School System. She is a licensed school administrator, general education teacher, special education teacher, and a proud member of the North Carolina Association of Educators. Mary Todd expresses her passion for children’s education through advocacy and sharing the voices of the marginalized whenever she can. Away from work, Mary Todd and her husband enjoy traveling, socializing, worshipping, and, of course, all things fashion!",
+      image: "/seenandheard/placeholder.png"
+    },
+    {
+      name: "Kristen Gulish",
+      role: "Clinical research leader",
+      bio: "Kristen Gulish is a Raleigh transplant with deep roots in clinical research. She brings over 15 years of experience managing complex studies and fostering innovation in the healthcare field. When she’s not navigating protocols and data points, she’s hitting the pavement as an avid runner, championing STEM and literacy education as a dedicated volunteer, and embracing her most challenging role yet—SAHM, or as she prefers, CEO of household. Her journey reflects a perfect balance of science, service, and spirited stride.",
+      image: "/seenandheard/placeholder.png"
+    },
+    {
+      name: "Deb Kargbo",
+      role: "Intern",
+      bio: "Deb Kargbo is a senior at the University of North Carolina at Chapel Hill and a Morehead-Cain scholar. She's originally from Sierra Leone and lives in the UK when she is not at UNC. She's an aspiring entrepreneur who wants to eventually return to Sierra Leone to do good.",
+      image: "/seenandheard/placeholder.png"
+    },
+    {
+      name: "Grayson Elliott",
+      role: "Intern",
+      bio: "Grayson Elliott is a sophomore at the University of North Carolina at Chapel Hill and a Morehead-Cain scholar. Originally from Boone, NC, he aspires to work somewhere at the intersection of health, environment, and business.",
+      image: "/seenandheard/placeholder.png"
+    },
+    {
+      name: "Charlotte Bruderly",
+      role: "Intern",
+      bio: "Charlotte Bruderly is a sophomore at Columbia University, where she is pursuing an undergraduate degree in Medical Humanities. She is interested in health, policy, and the manners in which they intersect. In her free time, she enjoys board games, tennis, and good books! She believes that Seen & Heard can equip young people with the advocacy tools they want and need in society today.",
+      image: "/seenandheard/placeholder.png"
+    }
+  ]
+
   const handleSectionClick = (index: number) => {
     setActiveSection(index)
     setCurrentSlide(index)
@@ -329,13 +374,70 @@ export default function App() {
                     
                     {/* Content Section */}
                     <div className="w-full lg:w-1/2 flex items-center justify-center">
-                      <div className="bg-black/20 backdrop-blur-sm rounded-xl p-3 sm:p-5 w-full max-w-md lg:max-w-none overflow-visible lg:overflow-y-auto lg:max-h-[500px]">
+                      <div className="bg-black/20 backdrop-blur-sm rounded-xl p-3 sm:p-5 w-full max-w-md lg:max-w-none overflow-y-auto max-h-[65vh] lg:max-h-[500px]">
                         <h2 className="text-xl sm:text-2xl lg:text-3xl xl:text-4xl font-bold text-white mb-3 sm:mb-4 leading-tight drop-shadow-lg">
                           {slide.title}
                         </h2>
-                        <p className="text-[13px] sm:text-base lg:text-lg text-white/95 mb-3 sm:mb-6 leading-relaxed drop-shadow-md">
-                          {slide.subtitle}
-                        </p>
+                        {index === 0 ? (
+                          <div className="space-y-4 sm:space-y-5 text-white/95">
+                            <p className="text-[13px] sm:text-base lg:text-lg leading-relaxed drop-shadow-md">
+                              Seen & Heard is a national, youth-powered force, sparking bold campaigns, winning real policy change, and uniting voices nationwide to champion the rights and futures of children and young people. We’re louder, stronger, and unstoppable together. Stand with us.
+                            </p>
+                            <div>
+                              <h3 className="text-white font-semibold text-base sm:text-lg mb-2">We don’t compromise on our values when we act. We believe in…</h3>
+                              <ul className="list-disc list-inside space-y-1 text-[13px] sm:text-base">
+                                <li>Youth as catalysts.</li>
+                                <li>Radical accountability.</li>
+                                <li>Disruption, with purpose.</li>
+                                <li>Power in partnership.</li>
+                                <li>Voice without permission.</li>
+                                <li>Urgency, fueled by hope.</li>
+                              </ul>
+                            </div>
+                            <div>
+                              <h3 className="text-white font-semibold text-base sm:text-lg mb-2">Why We’re Here Now</h3>
+                              <p className="text-[13px] sm:text-base lg:text-lg leading-relaxed drop-shadow-md mb-2">
+                                Right now, our country is failing its youngest generations. Lawmakers are gutting the very systems meant to support children and young people, and policies are being made every day that threaten what is possible for them now and in the future.
+                              </p>
+                              <ul className="list-disc list-inside space-y-1 text-[13px] sm:text-base mb-2">
+                                <li>American children now face nearly 2× the mortality rate of other wealthy nations.</li>
+                                <li>Around 77% of young Americans would not qualify for military service without a waiver. Weight, substance abuse, and mental and physical health are key disqualifiers.</li>
+                                <li>40% of high schoolers report persistent hopelessness. 20% seriously consider suicide, and 9% attempt it.</li>
+                              </ul>
+                              <p className="text-[13px] sm:text-base lg:text-lg leading-relaxed drop-shadow-md mb-2">
+                                The traditional ways that we advocate for children and young adults are not working. Many traditional approaches and adages, such as “children should be seen and not heard,” are not applicable today.
+                              </p>
+                              <p className="text-[13px] sm:text-base lg:text-lg leading-relaxed drop-shadow-md">
+                                Children hold valuable experiences, wisdom, and opinions. If given the chance, they can and will contribute to sustainable change. Seen & Heard knows that if we act now, allowing their voices to lead the way, we can build a society where children and young people are healthy, educated, supported, and safe.
+                              </p>
+                            </div>
+                            <div>
+                              <h3 className="text-white font-semibold text-base sm:text-lg mb-3">Our Team</h3>
+                              <div className="grid grid-cols-1 gap-3">
+                                {teamMembers.map((member, idx) => (
+                                  <div key={idx} className="flex items-start space-x-3 bg-white/10 rounded-lg p-3">
+                                    <img
+                                      src={member.image}
+                                      alt={member.name}
+                                      className="w-12 h-12 sm:w-14 sm:h-14 rounded-full object-cover flex-shrink-0"
+                                    />
+                                    <div className="text-white/95">
+                                      <p className="font-semibold text-sm sm:text-base">{member.name}</p>
+                                      {member.role && (
+                                        <p className="text-[11px] sm:text-xs opacity-90 mb-1">{member.role}</p>
+                                      )}
+                                      <p className="text-xs sm:text-sm leading-snug">{member.bio}</p>
+                                    </div>
+                                  </div>
+                                ))}
+                              </div>
+                            </div>
+                          </div>
+                        ) : (
+                          <p className="text-[13px] sm:text-base lg:text-lg text-white/95 mb-3 sm:mb-6 leading-relaxed drop-shadow-md">
+                            {slide.subtitle}
+                          </p>
+                        )}
                         
                         {/* Join Us specific content */}
                         {index === 1 && (
@@ -377,8 +479,8 @@ export default function App() {
                           </div>
                         )}
                         
-                        {/* Show button for all sections except Join Us */}
-                        {index !== 1 && (
+                        {/* Show button for all sections except Join Us. Hide on About Us since content is long. */}
+                        {index !== 1 && index !== 0 && (
                           <Button className="bg-white hover:bg-gray-100 text-gray-900 px-4 py-2 sm:px-6 sm:py-2 rounded-full font-semibold shadow-lg text-sm sm:text-base">
                             {slide.buttonText}
                           </Button>
