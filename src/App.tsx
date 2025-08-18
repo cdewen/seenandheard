@@ -12,6 +12,7 @@ export default function App() {
   const [headerOpacityValue, setHeaderOpacityValue] = useState(1)
   const [heroOpacityValue, setHeroOpacityValue] = useState(1)
   const [isMobile, setIsMobile] = useState(false)
+  const [secondSectionOpacityValue, setSecondSectionOpacityValue] = useState(0)
 
 
 
@@ -68,10 +69,16 @@ export default function App() {
   const secondSectionOpacity = useTransform(scrollYProgress, [0.3, 0.6], [0, 1])
   const secondSectionY = useTransform(scrollYProgress, [0.3, 0.6], [100, 0])
 
+  // Keep a state mirror of second section opacity to control pointer events
+  useMotionValueEvent(secondSectionOpacity, "change", (latest) => {
+    setSecondSectionOpacityValue(latest)
+  })
+
   // Section data
   const sections = [
     { title: "About Us", color: "#3B82F6", circleColor: "#0D703F" }, // Green
     { title: "Join Us", color: "#10B981", circleColor: "#315B7B" }, // Blue
+    { title: "Our Team", color: "#F59E0B", circleColor: "#6B4C9A" }, // Amber / Brown
     { title: "Support Us", color: "#8B5CF6", circleColor: "#C5441F" } // Red
   ]
 
@@ -95,6 +102,13 @@ export default function App() {
       subtitle: "Seen & Heard welcomes all individuals and organizations that care about children and young people. Whether you're a parent, caregiver, teacher, clinician, community leader, family member, friend of a young person, or a young person yourself - we want you to get involved. Don't just read about change, help make it happen.",
       buttonText: "Join Our Movement",
       image: "/seenandheard/placeholder.png"
+    },
+    { 
+      color: "transparent",
+      title: "Our Team",
+      subtitle: "Meet the people powering Seen & Heard.",
+      buttonText: "",
+      image: ""
     },
     { 
       color: "transparent",
@@ -232,6 +246,9 @@ export default function App() {
             Join Us
           </Button>
           <Button variant="link" onClick={() => handleNavClick(2)} className="text-gray-800 hover:text-black font-medium text-lg p-0 h-auto">
+            Our Team
+          </Button>
+          <Button variant="link" onClick={() => handleNavClick(3)} className="text-gray-800 hover:text-black font-medium text-lg p-0 h-auto">
             Support Us
           </Button>
         </nav>
@@ -267,6 +284,9 @@ export default function App() {
                 Join Us
               </Button>
               <Button variant="link" onClick={() => handleNavClick(2)} className="text-gray-800 hover:text-black font-medium text-lg py-2 text-left p-0 h-auto justify-start">
+                Our Team
+              </Button>
+              <Button variant="link" onClick={() => handleNavClick(3)} className="text-gray-800 hover:text-black font-medium text-lg py-2 text-left p-0 h-auto justify-start">
                 Support Us
               </Button>
               <Button onClick={() => window.open('https://render.jotform.com/252025356654153', '_blank')} className="bg-black hover:bg-gray-800 text-white px-6 py-2 rounded-md font-medium mt-2">
@@ -328,7 +348,8 @@ export default function App() {
         className="fixed inset-0 flex items-center justify-center z-40 pt-12 sm:pt-20 pb-6 sm:pb-16 overflow-hidden"
         style={{ 
           opacity: secondSectionOpacity,
-          y: secondSectionY
+          y: secondSectionY,
+          pointerEvents: secondSectionOpacityValue < 0.05 ? 'none' : 'auto'
         }}
       >
         <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 min-h-full flex flex-col justify-center">
@@ -362,19 +383,21 @@ export default function App() {
                 >
                   <div className="flex flex-col lg:flex-row items-center justify-center w-full max-w-6xl mx-auto space-y-3 lg:space-y-0 lg:space-x-8">
                     {/* Image Section */}
-                    <div className="flex-shrink-0 w-full lg:w-1/2 flex items-center justify-center">
-                      <div className="relative w-full max-w-sm lg:max-w-none">
-                        <img 
-                          src={slide.image} 
-                          alt={slide.title}
-                          className="w-full h-auto max-h-[140px] sm:max-h-[250px] lg:max-h-[350px] object-contain rounded-lg"
-                        />
+                    {slide.image ? (
+                      <div className="flex-shrink-0 w-full lg:w-1/2 flex items-center justify-center">
+                        <div className="relative w-full max-w-sm lg:max-w-none">
+                          <img 
+                            src={slide.image} 
+                            alt={slide.title}
+                            className="w-full h-auto max-h-[140px] sm:max-h-[250px] lg:max-h-[350px] object-contain rounded-lg"
+                          />
+                        </div>
                       </div>
-                    </div>
+                    ) : null}
                     
                     {/* Content Section */}
-                    <div className="w-full lg:w-1/2 flex items-center justify-center">
-                      <div className="bg-black/20 backdrop-blur-sm rounded-xl p-3 sm:p-5 w-full max-w-md lg:max-w-none overflow-y-auto max-h-[65vh] lg:max-h-[500px]">
+                    <div className={`w-full ${slide.image ? 'lg:w-1/2' : 'lg:w-full'} flex items-center justify-center`}>
+                      <div className={`bg-black/20 backdrop-blur-sm rounded-xl p-3 sm:p-5 w-full max-w-md lg:max-w-none ${secondSectionOpacityValue < 0.05 ? 'overflow-hidden' : 'overflow-y-auto'} max-h-[52svh] sm:max-h-[60svh] md:max-h-[65svh] lg:max-h-[500px]`}>
                         <h2 className="text-xl sm:text-2xl lg:text-3xl xl:text-4xl font-bold text-white mb-3 sm:mb-4 leading-tight drop-shadow-lg">
                           {slide.title}
                         </h2>
@@ -411,26 +434,27 @@ export default function App() {
                                 Children hold valuable experiences, wisdom, and opinions. If given the chance, they can and will contribute to sustainable change. Seen & Heard knows that if we act now, allowing their voices to lead the way, we can build a society where children and young people are healthy, educated, supported, and safe.
                               </p>
                             </div>
-                            <div>
-                              <h3 className="text-white font-semibold text-base sm:text-lg mb-3">Our Team</h3>
-                              <div className="grid grid-cols-1 gap-3">
-                                {teamMembers.map((member, idx) => (
-                                  <div key={idx} className="flex items-start space-x-3 bg-white/10 rounded-lg p-3">
-                                    <img
-                                      src={member.image}
-                                      alt={member.name}
-                                      className="w-12 h-12 sm:w-14 sm:h-14 rounded-full object-cover flex-shrink-0"
-                                    />
-                                    <div className="text-white/95">
-                                      <p className="font-semibold text-sm sm:text-base">{member.name}</p>
-                                      {member.role && (
-                                        <p className="text-[11px] sm:text-xs opacity-90 mb-1">{member.role}</p>
-                                      )}
-                                      <p className="text-xs sm:text-sm leading-snug">{member.bio}</p>
-                                    </div>
+                            
+                          </div>
+                        ) : index === 2 ? (
+                          <div className="space-y-3 text-white/95">
+                            <div className="grid grid-cols-1 gap-3">
+                              {teamMembers.map((member, idx) => (
+                                <div key={idx} className="flex items-start space-x-3 bg-white/10 rounded-lg p-3">
+                                  <img
+                                    src={member.image}
+                                    alt={member.name}
+                                    className="w-12 h-12 sm:w-14 sm:h-14 rounded-full object-cover flex-shrink-0"
+                                  />
+                                  <div className="text-white/95">
+                                    <p className="font-semibold text-sm sm:text-base">{member.name}</p>
+                                    {member.role && (
+                                      <p className="text-[11px] sm:text-xs opacity-90 mb-1">{member.role}</p>
+                                    )}
+                                    <p className="text-xs sm:text-sm leading-snug">{member.bio}</p>
                                   </div>
-                                ))}
-                              </div>
+                                </div>
+                              ))}
                             </div>
                           </div>
                         ) : (
@@ -479,8 +503,8 @@ export default function App() {
                           </div>
                         )}
                         
-                        {/* Show button for all sections except Join Us. Hide on About Us since content is long. */}
-                        {index !== 1 && index !== 0 && (
+                        {/* Show button only for Support Us */}
+                        {index === 3 && (
                           <Button className="bg-white hover:bg-gray-100 text-gray-900 px-4 py-2 sm:px-6 sm:py-2 rounded-full font-semibold shadow-lg text-sm sm:text-base">
                             {slide.buttonText}
                           </Button>
