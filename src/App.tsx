@@ -505,7 +505,10 @@ export default function App() {
                         
                         {/* Show button only for Support Us */}
                         {index === 3 && (
-                          <Button className="bg-white hover:bg-gray-100 text-gray-900 px-4 py-2 sm:px-6 sm:py-2 rounded-full font-semibold shadow-lg text-sm sm:text-base">
+                          <Button
+                            onClick={() => window.open('https://secure.actblue.com/donate/seen-and-heard-1', '_blank')}
+                            className="bg-white hover:bg-gray-100 text-gray-900 px-4 py-2 sm:px-6 sm:py-2 rounded-full font-semibold shadow-lg text-sm sm:text-base"
+                          >
                             {slide.buttonText}
                           </Button>
                         )}
