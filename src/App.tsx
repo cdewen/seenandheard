@@ -102,7 +102,7 @@ export default function App() {
     {
       name: "Charlene Wong",
       role: "Pediatrician, mom, and former policymaker",
-      bio: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+      bio: "Charlene Wong, MD, MSHP, is a pediatrician and health policy leader with a specialization in adolescent and young adult medicine. She most recently served as Senior Advisor for Health Strategy at the CDC, advancing national efforts in youth and family health, mental health, and emergency readiness. Previously, she served as North Carolina's inaugural Assistant Secretary for Children and Families and led the state's COVID-19 health policy. Dr. Wong founded the NC Integrated Care for Kids (NC InCK), a Medicaid initiative integrating care across health, education, and social services. A Morehead-Cain Scholar and nationally trained clinical scholar, she has held fellowships at the CDC and the Robert Wood Johnson Foundation.",
       image: "/seenandheard/teamPhotos/charlene.webp"
     },
     {
@@ -114,19 +114,19 @@ export default function App() {
     {
       name: "Ilina Ewen",
       role: "Writer, advocate, and communications expert",
-      bio: "Ilina Ewen is a writer, advocate, and communications expert with over 25 years of experience. A former Chief of Staff to the First Lady of North Carolina and longtime brand strategist, Ilina is known as an ‘accidental activist’ focused on issues stemming from adverse childhood experiences, including childhood hunger, child abuse, public education, global vaccines, and healthcare access. She speaks and writes widely on advocacy, family engagement, and social justice. Ilina is currently leading advocacy training and efforts at the Weill Cornell Department of Pediatrics.",
+      bio: "Ilina Ewen is a writer, advocate, and communications expert with over 25 years of experience. A former Chief of Staff to the First Lady of North Carolina and longtime brand strategist, Ilina is known as an 'accidental activist' focused on issues stemming from adverse childhood experiences, including childhood hunger, child abuse, public education, global vaccines, and healthcare access. She speaks and writes widely on advocacy, family engagement, and social justice. Ilina is currently leading advocacy training and efforts at the Weill Cornell Department of Pediatrics.",
       image: "/seenandheard/teamPhotos/ilina.webp"
     },
     {
       name: "Mary Todd Earnhardt",
       role: "Public school educator and licensed school administrator",
-      bio: "Mary Todd Earnhardt is five-year veteran public school educator in Raleigh, North Carolina, and a product of the Wake County Public School System. She is a licensed school administrator, general education teacher, special education teacher, and a proud member of the North Carolina Association of Educators. Mary Todd expresses her passion for children’s education through advocacy and sharing the voices of the marginalized whenever she can. Away from work, Mary Todd and her husband enjoy traveling, socializing, worshipping, and, of course, all things fashion!",
+      bio: "Mary Todd Earnhardt is five-year veteran public school educator in Raleigh, North Carolina, and a product of the Wake County Public School System. She is a licensed school administrator, general education teacher, special education teacher, and a proud member of the North Carolina Association of Educators. Mary Todd expresses her passion for children's education through advocacy and sharing the voices of the marginalized whenever she can. Away from work, Mary Todd and her husband enjoy traveling, socializing, worshipping, and, of course, all things fashion!",
       image: "/seenandheard/teamPhotos/marytodd.webp"
     },
     {
       name: "Kristen Gulish",
       role: "Clinical research leader",
-      bio: "Kristen Gulish is a Raleigh transplant with deep roots in clinical research. She brings over 15 years of experience managing complex studies and fostering innovation in the healthcare field. When she’s not navigating protocols and data points, she’s hitting the pavement as an avid runner, championing STEM and literacy education as a dedicated volunteer, and embracing her most challenging role yet—SAHM, or as she prefers, CEO of household. Her journey reflects a perfect balance of science, service, and spirited stride.",
+      bio: "Kristen Gulish is a Raleigh transplant with deep roots in clinical research. She brings over 15 years of experience managing complex studies and fostering innovation in the healthcare field. When she's not navigating protocols and data points, she's hitting the pavement as an avid runner, championing STEM and literacy education as a dedicated volunteer, and embracing her most challenging role yet—SAHM, or as she prefers, CEO of household. Her journey reflects a perfect balance of science, service, and spirited stride.",
       image: "/seenandheard/teamPhotos/kristen.webp"
     },
     {
@@ -384,10 +384,10 @@ export default function App() {
                         {index === 0 ? (
                           <div className="space-y-4 sm:space-y-5 text-white/95">
                             <p className="text-[13px] sm:text-base lg:text-lg leading-relaxed drop-shadow-md">
-                              Seen & Heard is a national, youth-powered force, sparking bold campaigns, winning real policy change, and uniting voices nationwide to champion the rights and futures of children and young people. We’re louder, stronger, and unstoppable together. Stand with us.
+                              Seen & Heard is a national, youth-powered force, sparking bold campaigns, winning real policy change, and uniting voices nationwide to champion the rights and futures of children and young people. We're louder, stronger, and unstoppable together. Stand with us.
                             </p>
                             <div>
-                              <h3 className="text-white font-semibold text-base sm:text-lg mb-2">We don’t compromise on our values when we act. We believe in…</h3>
+                              <h3 className="text-white font-semibold text-base sm:text-lg mb-2">We don't compromise on our values when we act. We believe in…</h3>
                               <ul className="list-disc list-inside space-y-1 text-[13px] sm:text-base">
                                 <li>Youth as catalysts.</li>
                                 <li>Radical accountability.</li>
@@ -398,7 +398,7 @@ export default function App() {
                               </ul>
                             </div>
                             <div>
-                              <h3 className="text-white font-semibold text-base sm:text-lg mb-2">Why We’re Here Now</h3>
+                              <h3 className="text-white font-semibold text-base sm:text-lg mb-2">Why We're Here Now</h3>
                               <p className="text-[13px] sm:text-base lg:text-lg leading-relaxed drop-shadow-md mb-2">
                                 Right now, our country is failing its youngest generations. Lawmakers are gutting the very systems meant to support children and young people, and policies are being made every day that threaten what is possible for them now and in the future.
                               </p>
