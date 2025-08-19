@@ -11,7 +11,6 @@ export default function App() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [headerOpacityValue, setHeaderOpacityValue] = useState(1)
   const [heroOpacityValue, setHeroOpacityValue] = useState(1)
-  const [isMobile, setIsMobile] = useState(false)
   const [secondSectionOpacityValue, setSecondSectionOpacityValue] = useState(0)
 
 
@@ -41,33 +40,13 @@ export default function App() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
   
-  // Track mobile breakpoint to tune the circle sizing on small screens
-  useEffect(() => {
-    const updateIsMobile = (): void => {
-      setIsMobile(window.matchMedia('(max-width: 640px)').matches)
-    }
-    updateIsMobile()
-    window.addEventListener('resize', updateIsMobile)
-    return () => window.removeEventListener('resize', updateIsMobile)
-  }, [])
-  
   // Circle animation - grows upward and fills screen
-  const circleScale = useTransform(
-    scrollYProgress,
-    [0, 0.8],
-    // On mobile, start just slightly larger than before to avoid gaps, but not enough to cover hero text
-    isMobile ? [1.06, 3.1] : [1, 3]
-  )
-  const circleY = useTransform(
-    scrollYProgress,
-    [0, 0.8],
-    // Keep initial Y neutral on mobile so it doesn't ride up over hero text
-    isMobile ? [0, -400] : [0, -400]
-  )
+  const circleScale = useTransform(scrollYProgress, [0, 1], [1, 3])
+  const circleY = useTransform(scrollYProgress, [0, 1], [0, -400])
   
-  // Second section animation
-  const secondSectionOpacity = useTransform(scrollYProgress, [0.3, 0.6], [0, 1])
-  const secondSectionY = useTransform(scrollYProgress, [0.3, 0.6], [100, 0])
+  // Second section animation - extend to bottom of page
+  const secondSectionOpacity = useTransform(scrollYProgress, [0.3, 1], [0, 1])
+  const secondSectionY = useTransform(scrollYProgress, [0.3, 1], [100, 0])
 
   // Keep a state mirror of second section opacity to control pointer events
   useMotionValueEvent(secondSectionOpacity, "change", (latest) => {
@@ -94,14 +73,14 @@ export default function App() {
       title: "About Us",
       subtitle: "Learn about our mission to amplify youth voices and create meaningful change. We are a national, youth-powered movement dedicated to organizing bold campaigns and advancing real policy change.",
       buttonText: "Follow Us",
-      image: "/seenandheard/placeholder.png"
+      image: "/seenandheard/sectionPhotos/sign.png"
     },
     { 
       color: "transparent",
       title: "Join Us",
       subtitle: "Seen & Heard welcomes all individuals and organizations that care about children and young people. Whether you're a parent, caregiver, teacher, clinician, community leader, family member, friend of a young person, or a young person yourself - we want you to get involved. Don't just read about change, help make it happen.",
       buttonText: "Join Our Movement",
-      image: "/seenandheard/placeholder.png"
+      image: "/seenandheard/sectionPhotos/group.png"
     },
     { 
       color: "transparent",
@@ -113,54 +92,60 @@ export default function App() {
     { 
       color: "transparent",
       title: "Support Us",
-      subtitle: "Help us amplify youth voices and advance our mission. Your support enables us to organize campaigns, advocate for policy change, and build stronger communities.",
+      subtitle: "Help us amplify youth voices and advance our mission. Your support enables us to organize campaigns, advocate for policy change, and build stronger communities. By donating, you're pulling up a seat at the kids' table, standing with young people and helping their voices lead.",
       buttonText: "Support Now",
-      image: "/seenandheard/placeholder.png"
+      image: "/seenandheard/sectionPhotos/megaphone.svg"
     }
   ]
 
   const teamMembers = [
     {
+      name: "Charlene Wong",
+      role: "Pediatrician, mom, and former policymaker",
+      bio: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+      image: "/seenandheard/teamPhotos/charlene.webp"
+    },
+    {
       name: "Sallie Permar",
       role: "Department Chair of Pediatrics, Weill Cornell; Pediatrician-in-Chief, Children's Hospital of New York",
       bio: "Sallie Permar is a national pediatric and physician-scientist leader and a mom. She is the Department Chair of Pediatrics at Weill Cornell Medicine and the Pediatrician-in-Chief for the Children's Hospital of New York. Her lab works to prevent infections in newborn babies.",
-      image: "/seenandheard/placeholder.png"
+      image: "/seenandheard/teamPhotos/sallie.webp"
     },
     {
       name: "Ilina Ewen",
       role: "Writer, advocate, and communications expert",
       bio: "Ilina Ewen is a writer, advocate, and communications expert with over 25 years of experience. A former Chief of Staff to the First Lady of North Carolina and longtime brand strategist, Ilina is known as an ‘accidental activist’ focused on issues stemming from adverse childhood experiences, including childhood hunger, child abuse, public education, global vaccines, and healthcare access. She speaks and writes widely on advocacy, family engagement, and social justice. Ilina is currently leading advocacy training and efforts at the Weill Cornell Department of Pediatrics.",
-      image: "/seenandheard/placeholder.png"
+      image: "/seenandheard/teamPhotos/ilina.webp"
     },
     {
       name: "Mary Todd Earnhardt",
       role: "Public school educator and licensed school administrator",
       bio: "Mary Todd Earnhardt is five-year veteran public school educator in Raleigh, North Carolina, and a product of the Wake County Public School System. She is a licensed school administrator, general education teacher, special education teacher, and a proud member of the North Carolina Association of Educators. Mary Todd expresses her passion for children’s education through advocacy and sharing the voices of the marginalized whenever she can. Away from work, Mary Todd and her husband enjoy traveling, socializing, worshipping, and, of course, all things fashion!",
-      image: "/seenandheard/placeholder.png"
+      image: "/seenandheard/teamPhotos/marytodd.webp"
     },
     {
       name: "Kristen Gulish",
       role: "Clinical research leader",
       bio: "Kristen Gulish is a Raleigh transplant with deep roots in clinical research. She brings over 15 years of experience managing complex studies and fostering innovation in the healthcare field. When she’s not navigating protocols and data points, she’s hitting the pavement as an avid runner, championing STEM and literacy education as a dedicated volunteer, and embracing her most challenging role yet—SAHM, or as she prefers, CEO of household. Her journey reflects a perfect balance of science, service, and spirited stride.",
-      image: "/seenandheard/placeholder.png"
+      image: "/seenandheard/teamPhotos/kristen.webp"
     },
     {
       name: "Deb Kargbo",
       role: "Intern",
       bio: "Deb Kargbo is a senior at the University of North Carolina at Chapel Hill and a Morehead-Cain scholar. She's originally from Sierra Leone and lives in the UK when she is not at UNC. She's an aspiring entrepreneur who wants to eventually return to Sierra Leone to do good.",
-      image: "/seenandheard/placeholder.png"
+      image: "/seenandheard/teamPhotos/deb.webp"
     },
     {
       name: "Grayson Elliott",
       role: "Intern",
       bio: "Grayson Elliott is a sophomore at the University of North Carolina at Chapel Hill and a Morehead-Cain scholar. Originally from Boone, NC, he aspires to work somewhere at the intersection of health, environment, and business.",
-      image: "/seenandheard/placeholder.png"
+      image: "/seenandheard/teamPhotos/grayson.webp"
     },
     {
       name: "Charlotte Bruderly",
       role: "Intern",
       bio: "Charlotte Bruderly is a sophomore at Columbia University, where she is pursuing an undergraduate degree in Medical Humanities. She is interested in health, policy, and the manners in which they intersect. In her free time, she enjoys board games, tennis, and good books! She believes that Seen & Heard can equip young people with the advocacy tools they want and need in society today.",
-      image: "/seenandheard/placeholder.png"
+      image: "/seenandheard/teamPhotos/charlotte.webp"
     }
   ]
 
@@ -212,7 +197,7 @@ export default function App() {
   }
 
   return (
-    <div ref={containerRef} className="relative" style={{ height: '300vh' }}>
+    <div ref={containerRef} className="relative" style={{ height: '200vh' }}>
       {/* Fixed Header */}
       <header 
         className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-4 py-4 sm:px-6 sm:py-6 lg:px-12"
@@ -332,12 +317,10 @@ export default function App() {
 
       {/* Animated Circle - Dynamic Color */}
       <motion.div 
-        className="fixed left-1/2 w-[200vmax] h-[200vmax] rounded-full origin-center transition-colors duration-500 pointer-events-none"
+        className="fixed left-1/2 w-[200vmax] h-[200vmax] rounded-full origin-center transition-colors duration-500 pointer-events-none top-[70svh] lg:top-[55vh]"
         style={{ 
           backgroundColor: sections[activeSection].circleColor,
           x: '-50%',
-          // Lower anchor on mobile so the hero stays readable on initial load
-          top: isMobile ? '70svh' : '55vh',
           scale: circleScale,
           y: circleY
         }}
@@ -381,26 +364,23 @@ export default function App() {
                   }`}
                   style={{ backgroundColor: slide.color }}
                 >
-                  <div className="flex flex-col lg:flex-row items-center justify-center w-full max-w-6xl mx-auto space-y-3 lg:space-y-0 lg:space-x-8">
+                  <div className={`flex flex-col lg:flex-row items-center lg:items-stretch justify-center w-full max-w-6xl mx-auto space-y-3 lg:space-y-0 lg:space-x-8 ${index === 2 ? 'h-full' : ''}` }>
                     {/* Image Section */}
                     {slide.image ? (
                       <div className="flex-shrink-0 w-full lg:w-1/2 flex items-center justify-center">
-                        <div className="relative w-full max-w-sm lg:max-w-none">
+                        <div className="relative w-full max-w-sm lg:max-w-none lg:h-full flex items-center justify-center">
                           <img 
                             src={slide.image} 
                             alt={slide.title}
-                            className="w-full h-auto max-h-[140px] sm:max-h-[250px] lg:max-h-[350px] object-contain rounded-lg"
+                            className={`w-full h-auto max-h-[35svh] sm:max-h-[40svh] lg:max-h-none object-contain rounded-lg mx-auto ${index === 0 || index === 3 ? 'lg:w-auto lg:h-[60%]' : 'lg:w-full lg:h-auto'}`}
                           />
                         </div>
                       </div>
                     ) : null}
                     
                     {/* Content Section */}
-                    <div className={`w-full ${slide.image ? 'lg:w-1/2' : 'lg:w-full'} flex items-center justify-center`}>
-                      <div className={`bg-black/20 backdrop-blur-sm rounded-xl p-3 sm:p-5 w-full max-w-md lg:max-w-none ${secondSectionOpacityValue < 0.05 ? 'overflow-hidden' : 'overflow-y-auto'} max-h-[52svh] sm:max-h-[60svh] md:max-h-[65svh] lg:max-h-[500px]`}>
-                        <h2 className="text-xl sm:text-2xl lg:text-3xl xl:text-4xl font-bold text-white mb-3 sm:mb-4 leading-tight drop-shadow-lg">
-                          {slide.title}
-                        </h2>
+                    <div className={`w-full ${slide.image ? 'lg:w-1/2' : 'lg:w-full'} flex ${index === 2 ? 'items-stretch h-full' : 'items-center'} justify-center`}>
+                      <div className={`bg-black/20 backdrop-blur-sm rounded-xl p-3 sm:p-5 w-full max-w-md lg:max-w-none ${secondSectionOpacityValue < 0.05 ? 'overflow-hidden' : 'overflow-y-auto'} ${index === 2 ? 'h-full' : 'max-h-[45svh] sm:max-h-[58svh] md:max-h-[65svh] lg:max-h-[500px]'}`}>
                         {index === 0 ? (
                           <div className="space-y-4 sm:space-y-5 text-white/95">
                             <p className="text-[13px] sm:text-base lg:text-lg leading-relaxed drop-shadow-md">
@@ -438,7 +418,7 @@ export default function App() {
                           </div>
                         ) : index === 2 ? (
                           <div className="space-y-3 text-white/95">
-                            <div className="grid grid-cols-1 gap-3">
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                               {teamMembers.map((member, idx) => (
                                 <div key={idx} className="flex items-start space-x-3 bg-white/10 rounded-lg p-3">
                                   <img
@@ -499,6 +479,21 @@ export default function App() {
                                 </div>
                               </div>
                             </div>
+                            {/* Under 26 Survey */}
+                            <div className="text-center">
+                              <p className="text-[13px] sm:text-base text-white/95 drop-shadow-md">
+                                Are you under 26? Help shape our work by completing this short survey: {" "}
+                                <a
+                                  href="https://www.surveymonkey.com/r/seenandheard"
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="underline font-semibold hover:text-white"
+                                >
+                                  Start the survey
+                                </a>
+                                .
+                              </p>
+                            </div>
                             
                           </div>
                         )}
@@ -537,34 +532,36 @@ export default function App() {
         </div>
       </motion.div>
 
-      {/* Floating "Grow with us" element at bottom */}
+      {/* Floating "find out more" element at bottom */}
       <motion.div 
         className="fixed bottom-6 left-1/2 transform -translate-x-1/2 z-50"
         style={{ 
           opacity: headerOpacity, // Fades out with header as user scrolls
         }}
       >
-        {/* Rounded rectangle with text */}
-        <div className="rounded-full px-6 py-3 shadow-lg bg-white">
-          <span className="text-sm font-medium text-gray-800 tracking-wide">
-            FIND OUT MORE
-          </span>
+        <div className="flex flex-col items-center pb-4">
+          {/* Rounded rectangle with text */}
+          <div className="rounded-full px-6 py-3 shadow-lg bg-white">
+            <span className="text-sm font-medium text-gray-800 tracking-wide">
+              FIND OUT MORE
+            </span>
+          </div>
+          {/* Bouncing down arrow */}
+          <svg 
+            xmlns="http://www.w3.org/2000/svg" 
+            viewBox="0 0 24 24" 
+            fill="none" 
+            stroke="currentColor" 
+            className="w-8 h-8 text-white animate-bounce mt-3" 
+            strokeWidth="2" 
+            aria-hidden="true"
+          >
+            <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+          </svg>
         </div>
-        
-        {/* Dashed line extending down */}
-        <div 
-          className="w-0.5 mx-auto mt-2"
-          style={{
-            height: '60px',
-            borderLeft: '2px dashed white',
-          }}
-        />
       </motion.div>
 
-      {/* Spacer for scroll */}
-      <div className="h-screen" />
-      <div className="h-screen" />
-      <div className="h-screen" />
+      {/* Spacer removed: scroll length now matches animation length exactly */}
     </div>
   )
 }
