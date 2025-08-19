@@ -78,7 +78,7 @@ export default function App() {
     { 
       color: "transparent",
       title: "Join Us",
-      subtitle: "Seen & Heard welcomes all individuals and organizations that care about children and young people. Whether you're a parent, caregiver, teacher, clinician, community leader, family member, friend of a young person, or a young person yourself - we want you to get involved. Don't just read about change, help make it happen.",
+      subtitle: "Seen & Heard welcomes all individuals and organizations that care about children and young people. Whether you're a parent, caregiver, teacher, doctor, community leader, family member, friend of a young person, or a young person yourself - we want you to get involved. Don't just read about change, help make it happen.",
       buttonText: "Join Our Movement",
       image: "/sectionPhotos/group.png"
     },
