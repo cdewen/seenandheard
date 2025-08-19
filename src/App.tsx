@@ -73,14 +73,14 @@ export default function App() {
       title: "About Us",
       subtitle: "Learn about our mission to amplify youth voices and create meaningful change. We are a national, youth-powered movement dedicated to organizing bold campaigns and advancing real policy change.",
       buttonText: "Follow Us",
-      image: "/seenandheard/sectionPhotos/sign.png"
+      image: "/sectionPhotos/sign.png"
     },
     { 
       color: "transparent",
       title: "Join Us",
       subtitle: "Seen & Heard welcomes all individuals and organizations that care about children and young people. Whether you're a parent, caregiver, teacher, clinician, community leader, family member, friend of a young person, or a young person yourself - we want you to get involved. Don't just read about change, help make it happen.",
       buttonText: "Join Our Movement",
-      image: "/seenandheard/sectionPhotos/group.png"
+      image: "/sectionPhotos/group.png"
     },
     { 
       color: "transparent",
@@ -94,7 +94,7 @@ export default function App() {
       title: "Support Us",
       subtitle: "Help us amplify youth voices and advance our mission. Your support enables us to organize campaigns, advocate for policy change, and build stronger communities. By donating, you're pulling up a seat at the kids' table, standing with young people and helping their voices lead.",
       buttonText: "Support Now",
-      image: "/seenandheard/sectionPhotos/megaphone.svg"
+      image: "/sectionPhotos/megaphone.svg"
     }
   ]
 
@@ -103,49 +103,49 @@ export default function App() {
       name: "Charlene Wong",
       role: "Pediatrician, mom, and former policymaker",
       bio: "Charlene Wong, MD, MSHP, is a pediatrician and health policy leader with a specialization in adolescent and young adult medicine. She most recently served as Senior Advisor for Health Strategy at the CDC, advancing national efforts in youth and family health, mental health, and emergency readiness. Previously, she served as North Carolina's inaugural Assistant Secretary for Children and Families and led the state's COVID-19 health policy. Dr. Wong founded the NC Integrated Care for Kids (NC InCK), a Medicaid initiative integrating care across health, education, and social services. A Morehead-Cain Scholar and nationally trained clinical scholar, she has held fellowships at the CDC and the Robert Wood Johnson Foundation.",
-      image: "/seenandheard/teamPhotos/charlene.webp"
+      image: "/teamPhotos/charlene.webp"
     },
     {
       name: "Sallie Permar",
       role: "Department Chair of Pediatrics, Weill Cornell; Pediatrician-in-Chief, Children's Hospital of New York",
       bio: "Sallie Permar is a national pediatric and physician-scientist leader and a mom. She is the Department Chair of Pediatrics at Weill Cornell Medicine and the Pediatrician-in-Chief for the Children's Hospital of New York. Her lab works to prevent infections in newborn babies.",
-      image: "/seenandheard/teamPhotos/sallie.webp"
+      image: "/teamPhotos/sallie.webp"
     },
     {
       name: "Ilina Ewen",
       role: "Writer, advocate, and communications expert",
       bio: "Ilina Ewen is a writer, advocate, and communications expert with over 25 years of experience. A former Chief of Staff to the First Lady of North Carolina and longtime brand strategist, Ilina is known as an 'accidental activist' focused on issues stemming from adverse childhood experiences, including childhood hunger, child abuse, public education, global vaccines, and healthcare access. She speaks and writes widely on advocacy, family engagement, and social justice. Ilina is currently leading advocacy training and efforts at the Weill Cornell Department of Pediatrics.",
-      image: "/seenandheard/teamPhotos/ilina.webp"
+      image: "/teamPhotos/ilina.webp"
     },
     {
       name: "Mary Todd Earnhardt",
       role: "Public school educator and licensed school administrator",
       bio: "Mary Todd Earnhardt is five-year veteran public school educator in Raleigh, North Carolina, and a product of the Wake County Public School System. She is a licensed school administrator, general education teacher, special education teacher, and a proud member of the North Carolina Association of Educators. Mary Todd expresses her passion for children's education through advocacy and sharing the voices of the marginalized whenever she can. Away from work, Mary Todd and her husband enjoy traveling, socializing, worshipping, and, of course, all things fashion!",
-      image: "/seenandheard/teamPhotos/marytodd.webp"
+      image: "/teamPhotos/marytodd.webp"
     },
     {
       name: "Kristen Gulish",
       role: "Clinical research leader",
       bio: "Kristen Gulish is a Raleigh transplant with deep roots in clinical research. She brings over 15 years of experience managing complex studies and fostering innovation in the healthcare field. When she's not navigating protocols and data points, she's hitting the pavement as an avid runner, championing STEM and literacy education as a dedicated volunteer, and embracing her most challenging role yet—SAHM, or as she prefers, CEO of household. Her journey reflects a perfect balance of science, service, and spirited stride.",
-      image: "/seenandheard/teamPhotos/kristen.webp"
+      image: "/teamPhotos/kristen.webp"
     },
     {
       name: "Deb Kargbo",
       role: "Intern",
       bio: "Deb Kargbo is a senior at the University of North Carolina at Chapel Hill and a Morehead-Cain scholar. She's originally from Sierra Leone and lives in the UK when she is not at UNC. She's an aspiring entrepreneur who wants to eventually return to Sierra Leone to do good.",
-      image: "/seenandheard/teamPhotos/deb.webp"
+      image: "/teamPhotos/deb.webp"
     },
     {
       name: "Grayson Elliott",
       role: "Intern",
       bio: "Grayson Elliott is a sophomore at the University of North Carolina at Chapel Hill and a Morehead-Cain scholar. Originally from Boone, NC, he aspires to work somewhere at the intersection of health, environment, and business.",
-      image: "/seenandheard/teamPhotos/grayson.webp"
+      image: "/teamPhotos/grayson.webp"
     },
     {
       name: "Charlotte Bruderly",
       role: "Intern",
       bio: "Charlotte Bruderly is a sophomore at Columbia University, where she is pursuing an undergraduate degree in Medical Humanities. She is interested in health, policy, and the manners in which they intersect. In her free time, she enjoys board games, tennis, and good books! She believes that Seen & Heard can equip young people with the advocacy tools they want and need in society today.",
-      image: "/seenandheard/teamPhotos/charlotte.webp"
+      image: "/teamPhotos/charlotte.webp"
     }
   ]
 
