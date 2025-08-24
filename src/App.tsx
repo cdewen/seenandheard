@@ -1,57 +1,18 @@
 import { Button } from "@/components/ui/button"
-import { Menu, X } from 'lucide-react'
-import { motion, useScroll, useTransform, useMotionValueEvent } from "framer-motion"
-import { useRef, useState, useEffect, useLayoutEffect } from "react"
-import { SocialIcon } from 'react-social-icons'
+import { motion } from "framer-motion"
+import { useRef, useEffect } from "react"
 
 export default function App() {
   const containerRef = useRef<HTMLDivElement>(null)
-  const [activeSection, setActiveSection] = useState(0)
-  const [currentSlide, setCurrentSlide] = useState(0)
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-  const [headerOpacityValue, setHeaderOpacityValue] = useState(1)
-  const [heroOpacityValue, setHeroOpacityValue] = useState(1)
-  const [secondSectionOpacityValue, setSecondSectionOpacityValue] = useState(0)
 
 
 
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start start", "end end"]
-  })
 
-  // Transform values based on scroll progress
-  const headerOpacity = useTransform(scrollYProgress, [0, 0.3], [1, 0])
-  const heroOpacity = useTransform(scrollYProgress, [0, 0.4], [1, 0])
-  const heroY = useTransform(scrollYProgress, [0, 0.4], [0, -100])
   
-  // Update header opacity state when motion value changes
-  useMotionValueEvent(headerOpacity, "change", (latest) => {
-    setHeaderOpacityValue(latest)
-  })
-  // Track hero opacity similarly so we can disable pointer events when hidden
-  useMotionValueEvent(heroOpacity, "change", (latest) => {
-    setHeroOpacityValue(latest)
-  })
 
-  // Initialize header opacity from current scroll on mount, before first paint
-  useLayoutEffect(() => {
-    setHeaderOpacityValue(headerOpacity.get())
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
   
-  // Circle animation - grows upward and fills screen
-  const circleScale = useTransform(scrollYProgress, [0, 1], [1, 3])
-  const circleY = useTransform(scrollYProgress, [0, 1], [0, -400])
   
-  // Second section animation - extend to bottom of page
-  const secondSectionOpacity = useTransform(scrollYProgress, [0.3, 1], [0, 1])
-  const secondSectionY = useTransform(scrollYProgress, [0.3, 1], [100, 0])
 
-  // Keep a state mirror of second section opacity to control pointer events
-  useMotionValueEvent(secondSectionOpacity, "change", (latest) => {
-    setSecondSectionOpacityValue(latest)
-  })
 
   // Section data
   const sections = [
@@ -61,140 +22,11 @@ export default function App() {
     { title: "Support Us", color: "#8B5CF6", circleColor: "#C5441F" } // Red
   ]
 
-  // Logo color state ensures cross-browser updates
-  const [logoColor, setLogoColor] = useState<string>(sections[0].circleColor)
-  useEffect(() => {
-    setLogoColor(sections[activeSection].circleColor)
-  }, [activeSection])
+  // Logo color is fixed to the first section since navigation is disabled
+  const logoColor = sections[0].circleColor
 
-  const slides = [
-    { 
-      color: "transparent",
-      title: "About Us",
-      subtitle: "Learn about our mission to amplify youth voices and create meaningful change. We are a national, youth-powered movement dedicated to organizing bold campaigns and advancing real policy change.",
-      buttonText: "Follow Us",
-      image: "/sectionPhotos/sign.png"
-    },
-    { 
-      color: "transparent",
-      title: "Join Us",
-      subtitle: "Seen & Heard welcomes all individuals and organizations that care about children and young people. Whether you're a parent, caregiver, teacher, doctor, community leader, family member, friend of a young person, or a young person yourself - we want you to get involved. Don't just read about change, help make it happen.",
-      buttonText: "Join Our Movement",
-      image: "/sectionPhotos/group.png"
-    },
-    { 
-      color: "transparent",
-      title: "Our Team",
-      subtitle: "Meet the people powering Seen & Heard.",
-      buttonText: "",
-      image: ""
-    },
-    { 
-      color: "transparent",
-      title: "Support Us",
-      subtitle: "Help us amplify youth voices and advance our mission. Your support enables us to organize campaigns, advocate for policy change, and build stronger communities. By donating, you're pulling up a seat at the kids' table, standing with young people and helping their voices lead.",
-      buttonText: "Support Now",
-      image: "/sectionPhotos/megaphone.svg"
-    }
-  ]
 
-  const teamMembers = [
-    {
-      name: "Charlene Wong",
-      role: "Pediatrician, mom, and former policymaker",
-      bio: "Charlene Wong, MD, MSHP, is a pediatrician and health policy leader with a specialization in adolescent and young adult medicine. She most recently served as Senior Advisor for Health Strategy at the CDC, advancing national efforts in youth and family health, mental health, and emergency readiness. Previously, she served as North Carolina's inaugural Assistant Secretary for Children and Families and led the state's COVID-19 health policy. Dr. Wong founded the NC Integrated Care for Kids (NC InCK), a Medicaid initiative integrating care across health, education, and social services. A Morehead-Cain Scholar and nationally trained clinical scholar, she has held fellowships at the CDC and the Robert Wood Johnson Foundation.",
-      image: "/teamPhotos/charlene.webp"
-    },
-    {
-      name: "Sallie Permar",
-      role: "Department Chair of Pediatrics, Weill Cornell; Pediatrician-in-Chief, Children's Hospital of New York",
-      bio: "Sallie Permar is a national pediatric and physician-scientist leader and a mom. She is the Department Chair of Pediatrics at Weill Cornell Medicine and the Pediatrician-in-Chief for the Children's Hospital of New York. Her lab works to prevent infections in newborn babies.",
-      image: "/teamPhotos/sallie.webp"
-    },
-    {
-      name: "Ilina Ewen",
-      role: "Writer, advocate, and communications expert",
-      bio: "Ilina Ewen is a writer, advocate, and communications expert with over 25 years of experience. A former Chief of Staff to the First Lady of North Carolina and longtime brand strategist, Ilina is known as an 'accidental activist' focused on issues stemming from adverse childhood experiences, including childhood hunger, child abuse, public education, global vaccines, and healthcare access. She speaks and writes widely on advocacy, family engagement, and social justice. Ilina is currently leading advocacy training and efforts at the Weill Cornell Department of Pediatrics.",
-      image: "/teamPhotos/ilina.webp"
-    },
-    {
-      name: "Mary Todd Earnhardt",
-      role: "Public school educator and licensed school administrator",
-      bio: "Mary Todd Earnhardt is five-year veteran public school educator in Raleigh, North Carolina, and a product of the Wake County Public School System. She is a licensed school administrator, general education teacher, special education teacher, and a proud member of the North Carolina Association of Educators. Mary Todd expresses her passion for children's education through advocacy and sharing the voices of the marginalized whenever she can. Away from work, Mary Todd and her husband enjoy traveling, socializing, worshipping, and, of course, all things fashion!",
-      image: "/teamPhotos/marytodd.webp"
-    },
-    {
-      name: "Kristen Gulish",
-      role: "Clinical research leader",
-      bio: "Kristen Gulish is a Raleigh transplant with deep roots in clinical research. She brings over 15 years of experience managing complex studies and fostering innovation in the healthcare field. When she's not navigating protocols and data points, she's hitting the pavement as an avid runner, championing STEM and literacy education as a dedicated volunteer, and embracing her most challenging role yet—SAHM, or as she prefers, CEO of household. Her journey reflects a perfect balance of science, service, and spirited stride.",
-      image: "/teamPhotos/kristen.webp"
-    },
-    {
-      name: "Deb Kargbo",
-      role: "Intern",
-      bio: "Deb Kargbo is a senior at the University of North Carolina at Chapel Hill and a Morehead-Cain scholar. She's originally from Sierra Leone and lives in the UK when she is not at UNC. She's an aspiring entrepreneur who wants to eventually return to Sierra Leone to do good.",
-      image: "/teamPhotos/deb.webp"
-    },
-    {
-      name: "Grayson Elliott",
-      role: "Intern",
-      bio: "Grayson Elliott is a sophomore at the University of North Carolina at Chapel Hill and a Morehead-Cain scholar. Originally from Boone, NC, he aspires to work somewhere at the intersection of health, environment, and business.",
-      image: "/teamPhotos/grayson.webp"
-    },
-    {
-      name: "Charlotte Bruderly",
-      role: "Intern",
-      bio: "Charlotte Bruderly is a sophomore at Columbia University, where she is pursuing an undergraduate degree in Medical Humanities. She is interested in health, policy, and the manners in which they intersect. In her free time, she enjoys board games, tennis, and good books! She believes that Seen & Heard can equip young people with the advocacy tools they want and need in society today.",
-      image: "/teamPhotos/charlotte.webp"
-    }
-  ]
 
-  const handleSectionClick = (index: number) => {
-    setActiveSection(index)
-    setCurrentSlide(index)
-  }
-
-  const handleDotClick = (index: number) => {
-    setCurrentSlide(index)
-    setActiveSection(index)
-  }
-
-  const handleNavClick = (sectionIndex: number) => {
-    // Scroll to the second section (where the 3-part content is)
-    const scrollTarget = window.innerHeight * 1.5 // Scroll further to fully reach the second section
-    
-    // Smooth scroll with custom duration
-    const startPosition = window.pageYOffset
-    const distance = scrollTarget - startPosition
-    const duration = 1500 // 1.5 seconds for slower, smoother scroll
-    let start: number | null = null
-
-    const step = (timestamp: number) => {
-      if (!start) start = timestamp
-      const progress = timestamp - start
-      const progressPercentage = Math.min(progress / duration, 1)
-      
-      // Easing function for smoother animation
-      const easeInOutCubic = (t: number): number => 
-        t < 0.5 ? 4 * t * t * t : (t - 1) * (2 * t - 2) * (2 * t - 2) + 1
-      
-      const currentPosition = startPosition + distance * easeInOutCubic(progressPercentage)
-      window.scrollTo(0, currentPosition)
-      
-      if (progress < duration) {
-        requestAnimationFrame(step)
-      }
-    }
-    
-    requestAnimationFrame(step)
-    
-    // Set the active section
-    setActiveSection(sectionIndex)
-    setCurrentSlide(sectionIndex)
-    
-    // Close mobile menu if open
-    setMobileMenuOpen(false)
-  }
 
   // Prevent scrolling and ensure page loads at top
   useEffect(() => {
@@ -332,7 +164,7 @@ export default function App() {
       <motion.div 
         className="fixed left-1/2 w-[200vmax] h-[200vmax] rounded-full origin-center transition-colors duration-500 pointer-events-none top-[70svh] lg:top-[55vh] z-0"
         style={{ 
-          backgroundColor: sections[activeSection].circleColor,
+          backgroundColor: sections[0].circleColor,
           x: '-50%',
           scale: 1,
           y: 0
