@@ -196,16 +196,32 @@ export default function App() {
     setMobileMenuOpen(false)
   }
 
+  // Prevent scrolling and ensure page loads at top
+  useEffect(() => {
+    // Set scroll position to top
+    window.scrollTo(0, 0);
+    
+    // Prevent scrolling
+    document.body.style.overflow = 'hidden';
+    document.documentElement.style.overflow = 'hidden';
+    
+    // Cleanup function to restore scrolling when component unmounts
+    return () => {
+      document.body.style.overflow = 'auto';
+      document.documentElement.style.overflow = 'auto';
+    };
+  }, []);
+
   return (
-    <div ref={containerRef} className="relative" style={{ height: '200vh' }}>
-      {/* Fixed Header */}
+    <div ref={containerRef} className="relative" style={{ height: '100vh' }}>
+      {/* Fixed Header - COMMENTED OUT */}
       <header 
         className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-4 py-4 sm:px-6 sm:py-6 lg:px-12"
         style={{ 
-          opacity: headerOpacityValue,
-          pointerEvents: headerOpacityValue < 0.05 ? 'none' : 'auto'
+          opacity: 1,
+          pointerEvents: 'auto'
         }}
-      >
+      > 
         <div className="flex items-center">
           <svg 
             width="180" 
@@ -221,8 +237,7 @@ export default function App() {
             />
           </svg>
         </div>
-
-        {/* Desktop Navigation */}
+ {/*
         <nav className="hidden md:flex items-center space-x-8">
           <Button variant="link" onClick={() => handleNavClick(0)} className="text-gray-800 hover:text-black font-medium text-lg p-0 h-auto">
             About Us
@@ -237,15 +252,14 @@ export default function App() {
             Support Us
           </Button>
         </nav>
+        */}
 
-        {/* Desktop CTA Button */}
         <div className="hidden md:flex items-center space-x-6">
-          <Button onClick={() => window.open('https://render.jotform.com/252025356654153', '_blank')} className="bg-black hover:bg-gray-800 text-white px-4 py-2 sm:px-6 sm:py-2 rounded-md font-medium text-sm sm:text-base">
-            Get Involved
+          <Button onClick={() => window.open('https://secure.actblue.com/donate/seen-and-heard-1', '_blank')} className="bg-black hover:bg-gray-800 text-white px-4 py-2 sm:px-6 sm:py-2 rounded-md font-medium text-sm sm:text-base">
+            Support Us
           </Button>
         </div>
-
-        {/* Mobile Menu Button */}
+{/*}
         <button 
           className="md:hidden p-2"
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -253,7 +267,6 @@ export default function App() {
           {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
         </button>
 
-        {/* Mobile Menu */}
         {mobileMenuOpen && (
           <motion.div 
             initial={{ opacity: 0, y: -20 }}
@@ -279,16 +292,16 @@ export default function App() {
               </Button>
             </nav>
           </motion.div>
-        )}
-      </header>
+        )} */}
 
+      </header>
       {/* Hero Section */}
       <motion.div 
         className="fixed inset-0 px-4 sm:px-6 lg:px-12 pt-20 sm:pt-24 lg:pt-32"
         style={{ 
-          opacity: heroOpacity,
-          y: heroY,
-          pointerEvents: heroOpacityValue < 0.05 ? 'none' : 'auto'
+          opacity: 1,
+          y: 0,
+          pointerEvents: 'auto'
         }}
       >
         <div className="max-w-6xl mx-auto">
@@ -309,34 +322,33 @@ export default function App() {
           {/* Subheading */}
           <div className="text-center mt-4 sm:mt-6 lg:mt-8 max-w-3xl mx-auto px-4">
             <p className="text-sm sm:text-base lg:text-lg xl:text-xl text-gray-800 font-medium leading-relaxed">
-            Seen & Heard is a national, youth-powered force, sparking bold campaigns, winning real policy change, and uniting voices nationwide to champion the rights and futures of children and young people. Stand with us. 
+            We are building Seen & Heard, a national, youth-powered force, sparking bold campaigns, winning real policy change, and uniting voices nationwide to champion the rights and futures of children and young people. Stand with us. 
             </p>
           </div>
         </div>
       </motion.div>
 
-      {/* Animated Circle - Dynamic Color */}
+      {/* Animated Circle - Fixed at initial state */}
       <motion.div 
-        className="fixed left-1/2 w-[200vmax] h-[200vmax] rounded-full origin-center transition-colors duration-500 pointer-events-none top-[70svh] lg:top-[55vh]"
+        className="fixed left-1/2 w-[200vmax] h-[200vmax] rounded-full origin-center transition-colors duration-500 pointer-events-none top-[70svh] lg:top-[55vh] z-0"
         style={{ 
           backgroundColor: sections[activeSection].circleColor,
           x: '-50%',
-          scale: circleScale,
-          y: circleY
+          scale: 1,
+          y: 0
         }}
       />
 
-      {/* Second Section with Navigation and Sliding Squares */}
-      <motion.div 
+      {/* Second Section with Navigation and Sliding Squares - COMMENTED OUT */}
+      {/* <motion.div 
         className="fixed inset-0 flex items-center justify-center z-40 pt-12 sm:pt-20 pb-6 sm:pb-16 overflow-hidden"
         style={{ 
           opacity: secondSectionOpacity,
           y: secondSectionY,
           pointerEvents: secondSectionOpacityValue < 0.05 ? 'none' : 'auto'
         }}
-      >
-        <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 min-h-full flex flex-col justify-center">
-          {/* Navigation Tabs */}
+      > */}
+        {/* <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 min-h-full flex flex-col justify-center">
           <div className="flex flex-wrap justify-center gap-1 sm:gap-2 mb-4 sm:mb-6 flex-shrink-0">
             {sections.map((section, index) => (
               <button
@@ -353,7 +365,6 @@ export default function App() {
             ))}
           </div>
 
-          {/* Content Container - No Horizontal Scrolling */}
           <div className="relative flex-1 overflow-hidden" style={{ minHeight: 'calc(100svh - 140px)' }}>
             <div className="w-full h-full">
               {slides.map((slide, index) => (
@@ -365,7 +376,6 @@ export default function App() {
                   style={{ backgroundColor: slide.color }}
                 >
                   <div className={`flex flex-col lg:flex-row items-center lg:items-stretch justify-center w-full max-w-6xl mx-auto space-y-3 lg:space-y-0 lg:space-x-8 ${index === 2 ? 'h-full' : ''}` }>
-                    {/* Image Section */}
                     {slide.image ? (
                       <div className="flex-shrink-0 w-full lg:w-1/2 flex items-center justify-center">
                         <div className="relative w-full max-w-sm lg:max-w-none lg:h-full flex items-center justify-center">
@@ -378,7 +388,6 @@ export default function App() {
                       </div>
                     ) : null}
                     
-                    {/* Content Section */}
                     <div className={`w-full ${slide.image ? 'lg:w-1/2' : 'lg:w-full'} flex ${index === 2 ? 'items-stretch h-full' : 'items-center'} justify-center`}>
                       <div className={`bg-black/20 backdrop-blur-sm rounded-xl p-3 sm:p-5 w-full max-w-md lg:max-w-none ${secondSectionOpacityValue < 0.05 ? 'overflow-hidden' : 'overflow-y-auto'} ${index === 2 ? 'h-full' : 'max-h-[45svh] sm:max-h-[58svh] md:max-h-[65svh] lg:max-h-[500px]'}`}>
                         {index === 0 ? (
@@ -408,7 +417,7 @@ export default function App() {
                                 <li>40% of high schoolers report persistent hopelessness. 20% seriously consider suicide, and 9% attempt it.</li>
                               </ul>
                               <p className="text-[13px] sm:text-base lg:text-lg leading-relaxed drop-shadow-md mb-2">
-                                The traditional ways that we advocate for children and young adults are not working. Many traditional approaches and adages, such as “children should be seen and not heard,” are not applicable today.
+                                The traditional ways that we advocate for children and young adults are not working. Many traditional approaches and adages, such as "children should be seen and not heard," are not applicable today.
                               </p>
                               <p className="text-[13px] sm:text-base lg:text-lg leading-relaxed drop-shadow-md">
                                 Children hold valuable experiences, wisdom, and opinions. If given the chance, they can and will contribute to sustainable change. Seen & Heard knows that if we act now, allowing their voices to lead the way, we can build a society where children and young people are healthy, educated, supported, and safe.
@@ -443,10 +452,8 @@ export default function App() {
                           </p>
                         )}
                         
-                        {/* Join Us specific content */}
                         {index === 1 && (
                           <div className="mb-3 sm:mb-4 space-y-3 sm:space-y-4">
-                            {/* Social Media Links */}
                             <div className="text-center">
                               <p className="text-[13px] sm:text-base text-white/95 mb-2 sm:mb-3 drop-shadow-md font-medium">
                                 Join the Seen & Heard community:
@@ -479,7 +486,6 @@ export default function App() {
                                 </div>
                               </div>
                             </div>
-                            {/* Under 26 Survey */}
                             <div className="text-center">
                               <p className="text-[13px] sm:text-base text-white/95 drop-shadow-md">
                                 Are you under 26? Help shape our work by completing this short survey: {" "}
@@ -498,7 +504,6 @@ export default function App() {
                           </div>
                         )}
                         
-                        {/* Show button only for Support Us */}
                         {index === 3 && (
                           <Button
                             onClick={() => window.open('https://secure.actblue.com/donate/seen-and-heard-1', '_blank')}
@@ -515,7 +520,6 @@ export default function App() {
             </div>
           </div>
 
-          {/* Pagination Dots */}
           <div className="flex justify-center gap-2 mt-3 sm:mt-4">
             {slides.map((_, index) => (
               <button
@@ -530,9 +534,9 @@ export default function App() {
             ))}
           </div>
         </div>
-      </motion.div>
+      </motion.div> */}
 
-      {/* Floating "find out more" element at bottom */}
+      {/* Floating "find out more" element at bottom 
       <motion.div 
         className="fixed bottom-6 left-1/2 transform -translate-x-1/2 z-50"
         style={{ 
@@ -540,13 +544,13 @@ export default function App() {
         }}
       >
         <div className="flex flex-col items-center pb-4">
-          {/* Rounded rectangle with text */}
+          {/* Rounded rectangle with text 
           <div className="rounded-full px-6 py-3 shadow-lg bg-white">
             <span className="text-sm font-medium text-gray-800 tracking-wide">
               FIND OUT MORE
             </span>
           </div>
-          {/* Bouncing down arrow */}
+          {/* Bouncing down arrow 
           <svg 
             xmlns="http://www.w3.org/2000/svg" 
             viewBox="0 0 24 24" 
@@ -560,6 +564,7 @@ export default function App() {
           </svg>
         </div>
       </motion.div>
+      */}
 
       {/* Spacer removed: scroll length now matches animation length exactly */}
     </div>
